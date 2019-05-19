@@ -24,6 +24,7 @@ export default class ListaPet extends React.Component {
             fetch(`https://pets-unipe.herokuapp.com/pets/${id}`, { method: 'DELETE' })
               .then(T => T.json())
               .then(() => this.setState({ pets: this.state.pets.filter(T => T.id !== id) }))
+              .then(() => this.props.history.push('/'))
           }
         }
       ])
@@ -42,8 +43,8 @@ export default class ListaPet extends React.Component {
           {pets.map((pet, key) => (
             <View key={key} style={{ flex: 0.1, height: 50, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
               <Text style={{ flex: 0.6 }}>{pet.name}</Text>
-              <Button style={{ flex: 0.2 }} title='Editar' onPress={() => this.props.history.push('/' + pet.id)} />
-              <Button style={{ flex: 0.2 }} title='Excluir' onPress={() => this.onDelete(pet.id)} />
+              <Button style={{ flex: 0.2 }} title='Editar' onPress={() => this.props.history.push('/' + pet._id)} />
+              <Button style={{ flex: 0.2 }} title='Excluir' onPress={() => this.onDelete(pet._id)} />
             </View>
           ))}
         </View>

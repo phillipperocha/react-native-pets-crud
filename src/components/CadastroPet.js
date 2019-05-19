@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { StyleSheet, View, Text } from 'react-native'
+import { StyleSheet, View, Text , Alert} from 'react-native'
 import FormPet from './FormPet'
 import qs from 'querystring'
  
