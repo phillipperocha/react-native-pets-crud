@@ -7,9 +7,7 @@ export default class ListaPet extends React.Component {
   }
  
   componentDidMount () {
-    fetch('https://pets-unipe.herokuapp.com/pets', { method: 'GET' })
-      .then(T => T.json())
-      .then(pets => this.setState({ pets }))
+    this.loadPets();
   }
  
   onDelete (id) {
@@ -25,9 +23,16 @@ export default class ListaPet extends React.Component {
               .then(T => T.json())
               .then(() => this.setState({ pets: this.state.pets.filter(T => T.id !== id) }))
               .then(() => this.props.history.push('/'))
+              .then( () => this.loadPets())
           }
         }
       ])
+  }
+
+  loadPets () {
+    fetch('https://pets-unipe.herokuapp.com/pets', { method: 'GET' })
+        .then(T => T.json())
+        .then(pets => this.setState({ pets }))
   }
  
   render () {
@@ -36,8 +41,17 @@ export default class ListaPet extends React.Component {
     return (
       <View style={styles.container}>
         <View style={styles.subcontainer}>
-          <Text>Pets</Text>
-          <Button title='Adicionar' onPress={() => this.props.history.push('/cadastro')} /> 
+          <Text style={{ fontWeight: 'bold', color: 'blue'}}>Pets</Text>
+          <View
+              style={{
+                width: 172
+              }}
+          >
+            <Button
+                title='Adicionar'
+                onPress={() => this.props.history.push('/cadastro')}
+            />
+          </View>
         </View>
         <View style={{ flex: 0.9 }}>
           {pets.map((pet, key) => (
@@ -52,8 +66,6 @@ export default class ListaPet extends React.Component {
     )
   }
 }
-
-// onPress={() => this.props.history.push('/cadastro')}
  
 const styles = StyleSheet.create({
   container: {
@@ -65,6 +77,7 @@ const styles = StyleSheet.create({
   subcontainer: {
     flex: 0.1,
     flexDirection: 'row',
-    justifyContent: 'space-between'
+    justifyContent: 'space-between',
+    paddingBottom: 20
   }
 })
